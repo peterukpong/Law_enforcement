@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: Law_Enforcement_Dispatched_Calls_for_Service
+    database: poetic-now-399015
+
+    tables:
+      - name: Law_Enforcemen_table
+      
+        freshness:
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 24, period: hour}
+        loaded_at_field: created_at

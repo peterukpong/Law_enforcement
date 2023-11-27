@@ -1,0 +1,150 @@
+## Testing, documentation, Referencing and configuration
+version: 2
+
+models:
+  - name: stg_law_enforcement
+    description: " Table describing and detaililing every calls recievec by the security agency in the Sanfrasisco Califonia area of the united state "
+    columns:
+      - name: id
+        description: "The eviction notice ID is the internal case record primarily used for administrative purposes."
+        tests:
+          - not_null
+          - unique
+
+      - name:  cad_number
+        description: "Unique 9-digit number assigned by the 911 Dispatch Center (DEM) to this call. Both Police and Fire Depts use these numbers "
+        tests:
+          - not_null
+          - unique
+
+      - name:  received_datetime
+        description: "Date and time when the 911 Dispatch Center receives the call"
+        tests:
+          - not_null
+
+      - name: entry_datetime
+        description: "Date and time when the 911 operator submits the initial call information into the CAD system"
+        tests:
+          - not_null
+              # where: "status = 'Returned'"
+
+      - name: dispatch_datetime
+        description: "Date and time when the 911 operator dispatches the first unit to the location of the incident "
+        tests:
+          - not_null
+              # where: " delivered_at IS NOT NULL OR status = 'Shipped'"
+
+      - name:  enroute_datetime
+        description: "Date and time when the first unit acknowledges the dispatch and records that they are enroute to the location of the incident"
+        tests:
+          - not_null
+              # where: " returned_at IS NOT NULL OR status = 'Complete'"
+
+      - name:  onscene_datetim
+        description: "Date and time the first unit records arriving at the location of the incident "
+        tests:
+          - not_null
+
+      - name:  close_datetime
+        description: "Date and time when the last unit responding closes the callt "
+        tests:
+          - not_null
+
+      - name: call_type_original
+        description: "Call type code as originally coded/selected by dispatcher"
+        tests:
+          - not_null
+
+      - name: call_type_original_desc
+        description: "Standard description of original call type"
+        tests:
+          - not_null
+
+      - name:  priority_orginal
+        description: "Priority level originally coded by dispatcher"
+        tests:
+          - not_null
+
+      - name: priority_final
+        description: "Final priority level for closed calls and most recent priority level for open calls"
+        tests:
+         - not_null
+
+      - name:  agency
+        description: "Primary agency assigned (Police, Sheriff, or MTA). Multiple units from different agencies may respond but only one agency will be identified as the primary responder"
+        tests:
+          - not_null
+
+      - name: onview_flag
+        description: "Indicates whether the associated cad_number originated from a 911 call (onview_flag = N) or from a law enforcement unit viewing an incident in the field (onview_flag = Y)"
+        tests:
+          - not_null
+
+      - name:  sensitive_call
+        description: "Indicates whether the call is flagged as sensitive. Location information is suppressed for sensitive call types"
+        tests:
+         - not_null
+
+      - name:  call_last_updated_at
+        description: "Exact timestamp when call log was last updated"
+        tests:
+          - not_null
+
+      - name: data_as_of
+        description: "Exact timestamp when a data file was last extracted from the source CAD systemr"
+        tests:
+          - not_null
+
+      - name: data_loaded_at
+        description: "Exact timestamp when data was last loaded here (into the open data portal)"
+        tests:
+          - not_null
+
+      - name: disposition
+        description: "Disposition of call"
+        tests:
+          - not_null
+
+      - name:  intersection_name
+        description: "Name of intersection used to anonymize the incident location"
+        tests:
+          - not_null
+
+      - name: intersection_id
+        description: "Unique ID for the intersection_point used to anonymize the incident location"
+        tests:
+          - not_null
+          - unique
+
+      - name: intersection_point
+        description: "Geographic point representing the anonymized incident location (nearest intersection)"
+        tests:
+          - not_null
+
+
+      - name: supervisor_district
+        description: "Supervisor district based on anonymized intersection coordinates"
+        tests:
+          - not_null
+
+      - name: analysis_neighborhood
+        description: "Analysis Neighborhoods based on anonymized intersection coordinates"
+        tests:
+          - not_null
+
+      - name: police_district
+        description: "Police District based on anonymized intersection coordinates"
+        tests:
+          - not_null
+
+      - name: call_type_final_notes
+        description: "Final call type code as coded/selected by dispatcher. For closed calls this is the last call type code. For open calls this code may continue to change."
+        tests:
+          - not_null
+
+      - name:  call_type_original_notes
+        description: "Any notes regarding the final call type entered by the dispatcher"
+        tests:
+          - not_null
+
+    

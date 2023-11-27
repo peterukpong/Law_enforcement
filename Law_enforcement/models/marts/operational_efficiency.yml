@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: operational_efficiency
+    description: " analyze call volume trends on a monthly and yearly basis "
+    columns:
+      - name: received_datetime
+        description: "Date and time when the 911 Dispatch Center receives the call"
+        tests:
+          - not_null
+
+      - name: enroute_datetime
+        description: "Date and time when the first unit acknowledges the dispatch and records that they are enroute to the location of the incident"
+        tests:
+          - not_null
+              # where
+
+      - name: close_datetime
+        description: "Date and time when the last unit responding closes the callt"
+        tests:
+          - not_null
+
+      - name: agency
+        description: "Primary agency assigned (Police, Sheriff, or MTA). Multiple units from different agencies may respond but only one agency will be identified as the primary responder"
+        tests:
+          - not_null
