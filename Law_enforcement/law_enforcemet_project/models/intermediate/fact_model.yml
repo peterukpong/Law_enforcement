@@ -1,0 +1,76 @@
+## Testing, documentation, Referencing and configuration
+version: 2
+
+models:
+  - name: int_law_fact_model
+    description: " Table describing and detaililing every calls recievec by the security agency in the Sanfrasisco Califonia area of the united state "
+    columns:
+      - name: id
+        description: "The eviction notice ID is the internal case record primarily used for administrative purposes."
+        tests:
+          - not_null
+          - unique
+
+     
+
+      - name:  received_datetime
+        description: "Date and time when the 911 Dispatch Center receives the call"
+        tests:
+          - not_null
+
+      - name: entry_datetime
+        description: "Date and time when the 911 operator submits the initial call information into the CAD system"
+        tests:
+          - not_null
+              # where: "status = 'Returned'"
+
+      - name: dispatch_datetime
+        description: "Date and time when the 911 operator dispatches the first unit to the location of the incident "
+        tests:
+          - not_null
+              # where: " delivered_at IS NOT NULL OR status = 'Shipped'"
+
+      - name:  enroute_datetime
+        description: "Date and time when the first unit acknowledges the dispatch and records that they are enroute to the location of the incident"
+        tests:
+          - not_null
+              # where: " returned_at IS NOT NULL OR status = 'Complete'"
+
+      - name:  onscene_datetim
+        description: "Date and time the first unit records arriving at the location of the incident "
+        tests:
+          - not_null
+
+      - name:  close_datetime
+        description: "Date and time when the last unit responding closes the callt "
+        tests:
+          - not_null
+
+      
+
+      - name:  call_last_updated_at
+        description: "Exact timestamp when call log was last updated"
+        tests:
+          - not_null
+
+      - name: data_as_of
+        description: "Exact timestamp when a data file was last extracted from the source CAD systemr"
+        tests:
+          - not_null
+
+      - name: data_loaded_at
+        description: "Exact timestamp when data was last loaded here (into the open data portal)"
+        tests:
+          - not_null
+      
+
+     
+
+  
+
+
+
+     
+
+
+    

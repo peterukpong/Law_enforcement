@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: recieved_date_trend
+    description: " analyze call volume trends on a monthly and yearly basis "
+    columns:
+      - name: received_datetime
+        description: "Date and time when the 911 Dispatch Center receives the call"
+        tests:
+          - not_null
+
+       
